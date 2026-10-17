@@ -12,6 +12,12 @@ $settings['site_key'] = getenv('SARCIO_SITE_KEY') ?: ($settings['site_key'] ?? '
 if (getenv('SARCIO_SIDECAR_KEY')) {
     $settings['sidecar_key'] = getenv('SARCIO_SIDECAR_KEY');
 }
+$settings['launcher_color'] ??= '#a4573a';
+$settings['launcher_icon'] ??= 'bubble';
+$settings['launcher_label'] ??= 'Report a problem';
+$settings['launcher_position'] ??= 'right';
+$settings['launcher_style'] ??= 'label';
+$settings['review_in_admin'] ??= true;
 update_option('sarcio_settings', $settings);
 
 $password = (string) getenv('HOLLIS_ADMIN_PASSWORD');
