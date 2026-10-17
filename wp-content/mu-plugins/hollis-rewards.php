@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Hollis Rewards
- * Description: Welcome and loyalty codes for Hollis & Hearth. Keeps first-order codes to first orders.
+ * Description: Campaign codes for Hollis & Hearth. Only codes in the running campaign can be used, so codes from past campaigns can't come back.
  * Version: 2.2.0
  * Author: Hollis & Hearth
  */
@@ -10,45 +10,38 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-/** Codes that only a customer's first order may use. */
-const HOLLIS_FIRST_ORDER_CODES = ['welcome10'];
+/** The codes the current campaign accepts, as they appear on the site. */
+const HOLLIS_CAMPAIGN_CODES = ['WELCOME10', 'HEARTH15'];
 
 /**
- * How many orders this shopper has placed before.
- *
- * 2.2 looks orders up by customer id, so a signed-in customer can't reuse a
- * welcome code from a second email address. A guest's customer id is 0, and
- * every guest order in the store is filed under 0 as well.
+ * Codes WooCommerce knows about that the rewards plugin manages. Anything else
+ * (gift cards, codes from the email tool) passes straight through.
  */
-function hollis_previous_order_count(): int
-{
-    return count(wc_get_orders([
-        'customer_id' => get_current_user_id(),
-        'limit' => 1,
-        'return' => 'ids',
-        'status' => ['wc-completed', 'wc-processing'],
-    ]));
-}
+const HOLLIS_MANAGED_CODES = ['welcome10', 'hearth15', 'spring20', 'holiday25'];
 
 /**
- * Refuse a first-order code for a shopper who has ordered before, before the
- * cart applies it. The site skips this check while a Sarcio fix says so.
+ * Refuse a managed code that isn't in the running campaign, before the cart
+ * applies it. The site skips this check while a Sarcio fix says so.
+ *
+ * 2.2 matches the code exactly as the campaign list spells it. The Store API
+ * hands over the code WooCommerce has already lowercased, so no campaign code
+ * ever matches and every one is refused as unknown.
  */
 add_filter('rest_request_before_callbacks', static function ($response, $handler, WP_REST_Request $request) {
     if ($response instanceof WP_Error || !str_ends_with($request->get_route(), '/wc/store/v1/cart/apply-coupon')) {
         return $response;
     }
-    $code = strtolower(trim((string) $request->get_param('code')));
-    if (!in_array($code, HOLLIS_FIRST_ORDER_CODES, true)) {
+    $code = wc_format_coupon_code((string) $request->get_param('code'));
+    if (!in_array($code, HOLLIS_MANAGED_CODES, true)) {
         return $response;
     }
-    if (function_exists('sarcio_skips') && sarcio_skips('first_order_check')) {
+    if (function_exists('sarcio_skips') && sarcio_skips('campaign_code_check')) {
         return $response;
     }
-    if (hollis_previous_order_count() > 0) {
+    if (!in_array($code, HOLLIS_CAMPAIGN_CODES, true)) {
         return new WP_Error(
-            'hollis_first_order_only',
-            sprintf('%s is only for your first order, and you have ordered with us before.', strtoupper($code)),
+            'woocommerce_rest_cart_coupon_error',
+            sprintf('Coupon "%s" does not exist!', $code),
             ['status' => 400],
         );
     }

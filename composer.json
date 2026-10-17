@@ -1,6 +1,6 @@
 {
   "name": "sarcio/demo-hollis-hearth",
-  "description": "Hollis & Hearth (fictional) — a real WordPress and WooCommerce homewares store whose cart has no checkout button and whose welcome coupon is refused, fixed live by the Sarcio plugin.",
+  "description": "Hollis & Hearth (fictional) — a real WordPress and WooCommerce homewares store whose cart has no checkout button and whose advertised welcome code is refused as unknown, fixed live by the Sarcio plugin.",
   "type": "project",
   "license": "UNLICENSED",
   "require": {
