@@ -24,13 +24,14 @@ the site's signed fixes itself with the site's sidecar key.
    (`wp-content/themes/hollis-hearth/style.css`) that never shipped, so a full
    cart has nowhere to go. A fix approved in Sarcio brings the button back for
    every visitor; the pull request with the permanent fix edits the stylesheet.
-2. **"WELCOME10 is on your banner, but the cart says it doesn't exist."** The
-   rewards plugin (`wp-content/mu-plugins/hollis-rewards.php`) only accepts the
-   running campaign's codes, and since 2.2 it compares them exactly as its list
-   spells them (`WELCOME10`) against the code WooCommerce has already lowercased
-   (`welcome10`), so every campaign code is refused as unknown. A fix approved
-   in Sarcio lets the codes through while the permanent fix is reviewed. If
-   Sarcio is unavailable the store behaves exactly as it did before.
+2. **"Checkout says to choose how many reward points to redeem. There's
+   nowhere to choose that."** The rewards plugin
+   (`wp-content/mu-plugins/hollis-rewards.php`) made `redeem_points` a required
+   checkout field in 2.2, but the box that sends it only exists in a checkout
+   template that isn't live yet, so every order is refused. A fix approved in
+   Sarcio supplies the missing value (no points) while the permanent fix is
+   reviewed. If Sarcio is unavailable the store behaves exactly as it did
+   before.
 
 ## Run it
 

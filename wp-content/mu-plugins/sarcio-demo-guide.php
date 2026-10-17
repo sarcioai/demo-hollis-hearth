@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
 
 const SARCIO_DEMO_GUIDE = [
     'business' => 'Hollis & Hearth',
-    'try' => 'Try buying something with the welcome code WELCOME10, the way a new customer would.',
+    'try' => 'Try buying something and checking out, the way a new customer would.',
 ];
 
 add_action('wp_footer', static function (): void {
