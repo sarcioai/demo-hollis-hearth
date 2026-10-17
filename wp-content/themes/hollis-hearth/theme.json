@@ -1,0 +1,82 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        { "color": "#FAF6F0", "name": "Base", "slug": "base" },
+        { "color": "#2B2623", "name": "Contrast", "slug": "contrast" },
+        { "color": "#A4573A", "name": "Clay", "slug": "clay" },
+        { "color": "#EFE6DA", "name": "Oat", "slug": "oat" },
+        { "color": "#6E6259", "name": "Taupe", "slug": "taupe" },
+        { "color": "#3F4A3C", "name": "Fir", "slug": "fir" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFace": [
+            {
+              "fontFamily": "Manrope",
+              "fontStyle": "normal",
+              "fontWeight": "200 800",
+              "src": ["file:./assets/fonts/manrope/Manrope-VariableFont_wght.woff2"]
+            }
+          ],
+          "fontFamily": "Manrope, sans-serif",
+          "name": "Manrope",
+          "slug": "manrope"
+        },
+        {
+          "fontFace": [
+            {
+              "fontFamily": "Vollkorn",
+              "fontStyle": "normal",
+              "fontWeight": "400 900",
+              "src": ["file:./assets/fonts/vollkorn/Vollkorn-VariableFont_wght.woff2"]
+            },
+            {
+              "fontFamily": "Vollkorn",
+              "fontStyle": "italic",
+              "fontWeight": "400 900",
+              "src": ["file:./assets/fonts/vollkorn/Vollkorn-Italic-VariableFont_wght.woff2"]
+            }
+          ],
+          "fontFamily": "Vollkorn, Georgia, serif",
+          "name": "Vollkorn",
+          "slug": "vollkorn"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|base",
+      "text": "var:preset|color|contrast"
+    },
+    "elements": {
+      "button": {
+        ":hover": {
+          "color": { "background": "var:preset|color|clay", "text": "var:preset|color|base" }
+        },
+        "border": { "radius": "4px" },
+        "color": { "background": "var:preset|color|contrast", "text": "var:preset|color|base" },
+        "typography": { "fontWeight": "600", "letterSpacing": "0.02em" }
+      },
+      "heading": {
+        "color": { "text": "var:preset|color|contrast" },
+        "typography": {
+          "fontFamily": "var:preset|font-family|vollkorn",
+          "fontWeight": "500"
+        }
+      },
+      "link": {
+        ":hover": { "color": { "text": "var:preset|color|clay" } },
+        "color": { "text": "var:preset|color|contrast" }
+      }
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|manrope"
+    }
+  }
+}

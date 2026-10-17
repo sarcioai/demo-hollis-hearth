@@ -1,0 +1,32 @@
+/*
+Theme Name: Hollis & Hearth
+Template: twentytwentyfive
+Description: The shop of Hollis & Hearth, a homewares store in Asheville, North Carolina. A child theme of Twenty Twenty-Five.
+Version: 4.0.0
+Requires at least: 6.7
+Requires PHP: 8.1
+Text Domain: hollis-hearth
+*/
+
+.wc-block-components-product-image img,
+.wp-block-woocommerce-product-image img,
+.woocommerce-product-gallery__image img {
+  border-radius: 6px;
+}
+
+.hollis-kicker {
+  color: var(--wp--preset--color--clay);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/*
+ * 4.0: the new sticky mobile cart bar carries its own "Checkout" button, so the
+ * cart's and the cart drawer's own buttons are hidden to avoid showing two.
+ */
+.wc-block-cart__submit-container,
+.wc-block-mini-cart__footer-checkout {
+  display: none;
+}
