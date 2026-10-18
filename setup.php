@@ -242,6 +242,15 @@ if (!is_file($dir . '/wp-config.php')) {
     define('WP_HOME', \$hollis_scheme . '://' . \$hollis_host . \$hollis_base);
     define('WP_SITEURL', WP_HOME);
 
+    // The front page is served at the bare base (`/hollis` without a trailing
+    // slash, which the router makes canonical) while WordPress would scope its
+    // cookies to `/hollis/`, so a signed-in visitor looked signed out on the
+    // front page alone. A cookie path without the slash matches both forms.
+    define('COOKIEPATH', \$hollis_base === '' ? '/' : \$hollis_base);
+    define('SITECOOKIEPATH', COOKIEPATH);
+    define('ADMIN_COOKIE_PATH', (\$hollis_base === '' ? '' : \$hollis_base) . '/wp-admin');
+    define('PLUGINS_COOKIE_PATH', (\$hollis_base === '' ? '' : \$hollis_base) . '/wp-content/plugins');
+
     // --- Sarcio, pinned exactly as a real deploy would ---------------------
     // The two keys are saved as ordinary settings at start-up (connect.php),
     // the way a site owner pastes them in; everything else is pinned here.
