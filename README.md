@@ -42,7 +42,7 @@ docker run -p 4015:4015 -e SARCIO_BASE_PATH=/hollis-hearth demo-hollis-hearth
 ```
 
 Environment: `PORT`, `SARCIO_BASE_PATH`, `SARCIO_SITE_KEY`, `SARCIO_API_URL`,
-`SARCIO_WIDGET_SRC`, `SARCIO_SIDECAR_KEY` (the site's `sk_` key, for the server
+`SARCIO_SIDECAR_KEY` (the site's `sk_` key, for the server
 tier), and `HOLLIS_ADMIN_PASSWORD` for wp-admin. Behind a proxy, send
 `X-Forwarded-Proto` so WordPress emits URLs in the visitor's scheme.
 The site key, the secret key and the admin password are applied each time the
